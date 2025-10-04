@@ -23,3 +23,5 @@ Route::prefix('attendance')->name('attendance.')->group(function () {
 
 Route::resource('employees', EmployeeController::class);
 Route::resource('departments', DepartmentController::class);
+Route::resource('attendance-histories', AttendanceHistoryController::class)
+    ->only(['index','show','destroy']);

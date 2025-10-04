@@ -29,6 +29,7 @@
       <th class="p-2 border">Status Out</th>
       <th class="p-2 border">Early (m)</th>
       <th class="p-2 border">Work (m)</th>
+      <th class="p-3 border w-28">History</th>
     </tr>
   </thead>
   <tbody>
@@ -44,6 +45,12 @@
       <td class="p-2 border">{{ $r->check_out_status }}</td>
       <td class="p-2 border text-right">{{ $r->early_minutes }}</td>
       <td class="p-2 border text-right">{{ $r->work_minutes }}</td>
+      <td class="p-3 border">
+  <a class="px-2 py-1 border rounded text-xs hover:bg-gray-50"
+     href="{{ route('attendance-histories.index', ['attendance_id' => $r->attendance_id]) }}">
+    Lihat
+  </a>
+</td>
     </tr>
   @empty
     <tr><td colspan="10" class="p-2 border text-center">Belum ada data</td></tr>

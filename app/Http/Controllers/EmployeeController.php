@@ -34,7 +34,8 @@ class EmployeeController extends Controller
     public function create()
     {
         $department = Department::orderBy('department_name')->get(['id','department_name']);
-        return view('employees.create', compact('department'));
+        $employee = Employee::all();
+        return view('employees.create', compact('department','employee'));
     }
 
     public function store(Request $request)
