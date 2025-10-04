@@ -17,7 +17,7 @@ class AttendanceHistoryController extends Controller
                 $q->where('attendance_id', $request->attendance_id)
             )
             ->when($request->filled('type'), fn($q) =>
-                $q->where('attendance_type', (int) $request->type) // 1=In, 2=Out
+                $q->where('attendance_type', (int) $request->type) 
             )
             ->when($request->filled('date_from'), fn($q) =>
                 $q->whereDate('date_attendance', '>=', $request->date_from)
@@ -37,7 +37,7 @@ class AttendanceHistoryController extends Controller
         return view('attendance_histories.show', ['history' => $attendance_history]);
     }
 
-    // Tidak diizinkan membuat/mengubah history secara manual
+   
     public function create()  { abort(404); }
     public function store(Request $r) { abort(404); }
     public function edit(AttendanceHistory $attendance_history) { abort(404); }

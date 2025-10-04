@@ -8,12 +8,10 @@
   @vite(['resources/css/app.css','resources/js/app.js'])
   @stack('styles')
 </head>
-{{-- tambahkan flex & flex-col --}}
-<body class="min-h-screen flex flex-col bg-gray-50 text-gray-900">
-  {{-- Navbar --}}
-  @include('includes.navbar')
 
-  {{-- jadikan main fleksibel supaya mengisi ruang kosong --}}
+<body class="min-h-screen flex flex-col bg-gray-50 text-gray-900">
+  
+  @include('includes.navbar')
   <main class="flex-1 px-4 py-6">
     @if ($errors->any())
       <div class="mb-4 rounded-lg bg-red-50 p-3 text-sm text-red-700">
@@ -28,8 +26,7 @@
 
     @yield('content')
   </main>
-
-  {{-- Footer: dorong ke bawah dengan mt-auto --}}
+  
   <div class="mt-auto">
     @include('includes.footer')
   </div>

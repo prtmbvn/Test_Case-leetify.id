@@ -12,7 +12,7 @@
   </div>
 
   <div class="grid gap-4">
-    {{-- Employee ID --}}
+    
     <div>
       <label class="block text-sm font-medium text-slate-800 mb-1">
         Employee ID <span class="text-red-500">*</span>
@@ -31,7 +31,7 @@
       @enderror
     </div>
 
-    {{-- Nama --}}
+    
     <div>
       <label class="block text-sm font-medium text-slate-800 mb-1">
         Nama <span class="text-red-500">*</span>
@@ -48,7 +48,7 @@
       @enderror
     </div>
 
-    {{-- Departemen --}}
+    
     <div>
       <label class="block text-sm font-medium text-slate-800 mb-1">
         Departemen <span class="text-red-500">*</span>
@@ -78,7 +78,7 @@
       @enderror
     </div>
 
-    {{-- Alamat (opsional) --}}
+    
     <div>
       <label class="block text-sm font-medium text-slate-800 mb-1">Alamat (opsional)</label>
       <textarea

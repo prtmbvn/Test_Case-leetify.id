@@ -10,9 +10,6 @@ use Illuminate\Support\Str;
 
 class AttendanceController extends Controller
 {
-    /** ================== Resource minimal ================== */
-
-    // Pakai tampilan log sebagai index (list) supaya konsisten requirement
     public function index(Request $request)
     {
         return $this->logs($request);
@@ -29,18 +26,15 @@ class AttendanceController extends Controller
         return view('attendance.show', compact('attendance'));
     }
 
-    // Kalau admin mau hapus record attendance
     public function destroy(Attendance $attendance)
     {
-        $attendance->delete(); // FK CASCADE akan hapus histories
+        $attendance->delete(); 
         return redirect()->route('attendance.logs')->with('ok', 'Record attendance dihapus.');
     }
 
-    /** ================== Aksi Check-in / Check-out ================== */
 
     public function showCheckIn()
     {
-        // ambil list karyawan (dropdown)
         $employees = \App\Models\Employee::orderBy('name')->get(['employee_id','name']);
         return view('attendance.check-in', compact('employees'));
     }
@@ -104,8 +98,6 @@ class AttendanceController extends Controller
         return back()->with('ok', 'Check-out berhasil.');
     }
 
-    /** ================== Logs (ketepatan) ================== */
-
     public function logs(Request $request)
     {
         $request->validate([
@@ -143,7 +135,6 @@ class AttendanceController extends Controller
         $rows = $q->orderByDesc('attendance.clock_in')->paginate(20)->withQueryString();
         $departments = Department::orderBy('department_name')->get(['id','department_name']);
 
-        // Reuse view logs
         return view('attendance.logs', compact('rows','departments'));
     }
 }

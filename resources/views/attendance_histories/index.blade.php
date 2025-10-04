@@ -2,68 +2,80 @@
 @section('title','Attendance History')
 
 @section('content')
-<h1 class="text-xl font-semibold mb-4">Attendance History</h1>
+<h1 class="mb-4 text-2xl font-bold text-slate-800">
+  Attendance History
+  <span class="mt-1 block h-1 w-28 rounded bg-amber-300"></span>
+</h1>
 
-<form method="get" class="flex flex-wrap gap-2 mb-4">
+<form method="get" class="mb-4 flex flex-wrap gap-2">
   <input type="text" name="employee_id" value="{{ request('employee_id') }}" placeholder="EMP-001"
-         class="border p-2 rounded">
+         class="rounded border border-slate-300 p-2 text-sm focus:border-amber-300 focus:ring-amber-300">
   <input type="text" name="attendance_id" value="{{ request('attendance_id') }}" placeholder="UUID attendance"
-         class="border p-2 rounded">
-  <select name="type" class="border p-2 rounded">
+         class="rounded border border-slate-300 p-2 text-sm focus:border-amber-300 focus:ring-amber-300">
+  <select name="type" class="rounded border border-slate-300 p-2 text-sm focus:border-amber-300 focus:ring-amber-300">
     <option value="">— Tipe —</option>
     <option value="1" @selected(request('type')==='1')>Check-in</option>
     <option value="2" @selected(request('type')==='2')>Check-out</option>
   </select>
-  <input type="date" name="date_from" value="{{ request('date_from') }}" class="border p-2 rounded">
-  <input type="date" name="date_to"   value="{{ request('date_to')   }}" class="border p-2 rounded">
-  <button class="px-4 py-2 border rounded hover:bg-gray-50">Filter</button>
+  <input type="date" name="date_from" value="{{ request('date_from') }}"
+         class="rounded border border-slate-300 p-2 text-sm focus:border-amber-300 focus:ring-amber-300">
+  <input type="date" name="date_to" value="{{ request('date_to') }}"
+         class="rounded border border-slate-300 p-2 text-sm focus:border-amber-300 focus:ring-amber-300">
+  <button class="rounded bg-amber-300 px-4 py-2 text-sm font-semibold text-slate-900 hover:bg-amber-400">Filter</button>
   @if(request()->hasAny(['employee_id','attendance_id','type','date_from','date_to']))
-    <a href="{{ route('attendance-histories.index') }}" class="px-2 py-2 text-sm">Reset</a>
+    <a href="{{ route('attendance-histories.index') }}" class="rounded border px-3 py-2 text-sm text-slate-700 hover:bg-amber-50">Reset</a>
   @endif
 </form>
 
-<div class="overflow-x-auto rounded border shadow-sm">
+<div class="overflow-x-auto rounded border border-amber-200/70 bg-white shadow-sm">
   <table class="w-full min-w-[900px] text-sm">
-    <thead>
-      <tr class="bg-gray-100">
-        <th class="p-3 border">Waktu</th>
-        <th class="p-3 border">Employee</th>
-        <th class="p-3 border">Attendance ID</th>
-        <th class="p-3 border">Tipe</th>
-        <th class="p-3 border">Deskripsi</th>
-        <th class="p-3 border w-28">Aksi</th>
+    <thead class="bg-amber-50">
+      <tr class="text-left text-slate-700">
+        <th class="p-3 border-b border-amber-100">Waktu</th>
+        <th class="p-3 border-b border-amber-100">Employee</th>
+        <th class="p-3 border-b border-amber-100">Attendance ID</th>
+        <th class="p-3 border-b border-amber-100">Tipe</th>
+        <th class="p-3 border-b border-amber-100">Deskripsi</th>
+        <th class="p-3 border-b border-amber-100 w-28">Aksi</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody class="[&>tr:nth-child(even)]:bg-amber-50/20">
       @forelse($histories as $h)
-        <tr class="hover:bg-gray-50">
-          <td class="p-3 border">{{ $h->date_attendance }}</td>
-          <td class="p-3 border">{{ $h->employee_id }}</td>
-          <td class="p-3 border font-mono">{{ $h->attendance_id }}</td>
-          <td class="p-3 border">
+        <tr class="transition-colors hover:bg-amber-50">
+          
+          <td class="p-3 border-t border-amber-100">{{ $h->date_attendance }}</td>
+          <td class="p-3 border-t border-amber-100">{{ $h->employee_id }}</td>
+          <td class="p-3 border-t border-amber-100 font-mono text-[12px] break-all">{{ $h->attendance_id }}</td>
+          <td class="p-3 border-t border-amber-100">
             @if($h->attendance_type==1)
-              <span class="inline-flex items-center px-2 py-0.5 rounded bg-green-100 text-green-700 text-xs">IN</span>
+              <span class="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-0.5 text-xs font-semibold text-emerald-800">IN</span>
             @elseif($h->attendance_type==2)
-              <span class="inline-flex items-center px-2 py-0.5 rounded bg-blue-100 text-blue-700 text-xs">OUT</span>
+              <span class="inline-flex items-center rounded-full border border-sky-200 bg-sky-50 px-2.5 py-0.5 text-xs font-semibold text-sky-800">OUT</span>
             @else
-              <span class="inline-flex items-center px-2 py-0.5 rounded bg-gray-100 text-gray-700 text-xs">N/A</span>
+              <span class="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-2.5 py-0.5 text-xs font-semibold text-slate-700">N/A</span>
             @endif
           </td>
-          <td class="p-3 border">{{ $h->description ?? '-' }}</td>
-          <td class="p-3 border">
+          <td class="p-3 border-t border-amber-100">{{ $h->description ?? '-' }}</td>
+          <td class="p-3 border-t border-amber-100">
             <div class="flex gap-2">
               <a href="{{ route('attendance-histories.show', $h) }}"
-                 class="px-2 py-1 border rounded text-xs hover:bg-gray-50">Detail</a>
+                 class="rounded bg-amber-300 px-2.5 py-1 text-xs font-semibold text-slate-900 hover:bg-amber-400">
+                Detail
+              </a>
               <form method="post" action="{{ route('attendance-histories.destroy', $h) }}"
                     onsubmit="return confirm('Hapus history ini?')">
                 @csrf @method('DELETE')
-                <button class="px-2 py-1 border rounded text-xs hover:bg-gray-50">Hapus</button>
+                <button class="rounded border px-2.5 py-1 text-xs text-slate-700 hover:bg-amber-50">
+                  Hapus
+                </button>
               </form>
             </div>
           </td>
         </tr>
       @empty
-        <tr><td colspan="6" class="p-3 border text-center text-slate-500">Belum ada data</td></tr>
+        <tr>
+          <td colspan="7" class="p-3 text-center text-slate-600">Belum ada data</td>
+        </tr>
       @endforelse
     </tbody>
   </table>
