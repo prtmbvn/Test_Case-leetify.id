@@ -31,9 +31,9 @@ php artisan key:generate
 # 4) Konfigurasi .env lalu migrate
 php artisan migrate
 
+# 5) Run Project
+composer run dev 
 
-RUN THE PROJECT 
-    composer run dev (sebelumnya instal dulu composer "composer install")
 
 | Modul              | Method | Route                        | Keterangan                                                            |
 | ------------------ | ------ | ---------------------------- | --------------------------------------------------------------------- |
